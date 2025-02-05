@@ -1,0 +1,64 @@
+﻿@model MVCDataAcessfromAPI.Models.Employee
+
+@{
+    ViewData["Title"] = "Create";
+    var listCities = new SelectList((List<Cities>?)ViewData["cities"], "Id", "CityName");
+
+    var ListGenders = ViewData["Gender"]as List<Gender>;
+}
+
+
+<h1>Create</h1>
+
+<div style="text-align:center">
+    <section >
+        @using (Html.BeginForm("InsertEmployeeDetails", "Employee"))
+        {
+            <label for="fname">First name</label>
+            @Html.TextBoxFor(obj => obj.FirstName)
+
+            <br>
+            <label for="fname">LastName</label>
+            @Html.TextBoxFor(obj => obj.LastName)
+
+            <br>
+            <label for="fname">salary</label>
+            @Html.TextBoxFor(obj => obj.salary, new { @type = "number" })
+
+            <br>
+            <label for="fname">location</label>
+            @Html.DropDownListFor(obj => obj.LocationID,listCities,"Select Location")
+
+            <br>
+            <label for="fname">IsDelete</label>
+            @Html.CheckBoxFor(obj => obj.Isdelete)
+
+            <br>
+            <br>
+            <label for="fname">Gender</label>
+             <div style="display:inline-flex;justify-content:center">
+            @foreach (var sex in ListGenders)
+                {
+                   
+                     <div style="margin:0px 10px">
+
+                        @Html.RadioButtonFor(model => model.GenderId, sex.Id, new { id = "sex" + sex.Id, })
+                        @Html.Label("sex" + sex.Id, sex.Name)
+                     </div>
+                    
+                }
+
+            </div>
+
+            <br />
+            <br>
+           @*  <label for="fname">Gender</label>
+            @Html.RadioButtonFor(obj => obj.GenderId,ListGenders)
+
+             *@
+
+
+            <input type="submit" value="Submit" class="btn btn-secondary"  />
+        }
+    </section>
+</div>
