@@ -57,6 +57,14 @@ namespace MVCDataAcessfromAPI.Controllers
             ViewData["Gender"] = await MVCGenderTable();
             return View();
         }
+        [HttpGet]
+         public async Task<IActionResult> Update(int id)
+         {
+             ViewData["cities"] = await MVCCitiesTableData();
+             ViewData["Gender"] = await MVCGenderTable();
+             var emp =  await _apiconnect.ApiCallPost<Employee?>("Employeeservice/GetEmployeeeDetailsById", new { id = id });
+             return View(emp);
+         }
 
         [HttpPost]
         public  async Task<IActionResult>  InsertEmployeeDetails(Employee employee)
